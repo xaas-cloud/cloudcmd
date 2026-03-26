@@ -35,7 +35,11 @@ RUN apt-get update && apt-get upgrade && apt-get autoremove && \
     echo "alias buni='bun i --no-save'" >> /etc/bash.bashrc && \
     echo "PS1='\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '" >> /etc/bash.bashrc && \
     echo "set editing-mode vi" >> /etc/inputrc && \
-    echo "TAB: menu-complete" >> /etc/inputrc
+    echo "TAB: menu-complete" >> /etc/inputrc && \
+    echo "set UTF-8" && \
+    apt-get install -y locales && \
+    locale-gen en_US.UTF-8 && \
+    update-locale LANG=en_US.UTF-8
 
 COPY . /usr/src/cloudcmd
 
@@ -45,6 +49,11 @@ ENV cloudcmd_terminal=true
 ENV cloudcmd_terminal_path=gritty
 ENV cloudcmd_open=false
 ENV PATH=node_modules/.bin:$PATH
+
+ENV LANG=en_US.UTF-8
+ENV LANGUAGE=en_US:en
+ENV LC_ALL=en_US.UTF-8
+
 
 EXPOSE 8000
 
